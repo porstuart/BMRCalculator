@@ -321,7 +321,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                child: Text("Your BMR is $bmr hahahahaha"),
+                child: Text("Your BMR is $bmr"),
               ),
             ],
           ),
