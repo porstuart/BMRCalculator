@@ -19,6 +19,9 @@ class _HomePageState extends State<HomePage> {
   String _formulaType;
   int selectedRadio;
   int selectedRadioTile;
+  int age, height, weight;
+  double total;
+  int bmr;
 
   @override
   void initState() {
@@ -30,6 +33,34 @@ class _HomePageState extends State<HomePage> {
   setSelectedRadioTile(int val) {
     setState(() {
       selectedRadioTile = val;
+    });
+  }
+
+  void _calculate() {
+    setState(() {
+      age = int.parse(_ageController.text);
+      weight = int.parse(_weightController.text);
+      height = int.parse(_heightController.text);
+
+      if (_formulaType == "1") {
+        if (_genderValue == "Male") {
+          total = ((10 * weight) + (6.25 * height) - (5 * age) + 5);
+          total.round();
+        } else {
+          total = ((10 * weight) + (6.25 * height) - (5 * age) - 161);
+          total.round();
+        }
+      } else {
+        if (_genderValue == "Male") {
+          total = (66.47 + (13.75 * weight) + (5.003 * height) - (6.755 * age));
+          total.round();
+        } else {
+          total = (655.1 + (9.563 * weight) + (1.85 * height) - (4.676 * age));
+          total.round();
+        }
+      }
+      //total.round();
+      bmr = total.round();
     });
   }
 
@@ -257,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: new BorderRadius.circular(5.0),
                 ),
                 child: RaisedButton(
-                  onPressed: () {},
+                  onPressed: _calculate,
                   textColor: Colors.black,
                   padding: const EdgeInsets.all(0.0),
                   child: Container(
@@ -277,6 +308,20 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: EdgeInsets.all(10.0),
+              ),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5)
+                    ],
+                  ),
+                ),
+                child: Text("Your BMR is $bmr"),
               ),
             ],
           ),
