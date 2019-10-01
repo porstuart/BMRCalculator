@@ -88,12 +88,6 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           'BMR Calculator',
         ),
-        actions: <Widget>[
-          // action button
-          Icon(
-            Icons.clear,
-          ),
-        ],
         backgroundColor: Colors.indigo[500],
       ),
       body: GestureDetector(
