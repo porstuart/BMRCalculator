@@ -20,14 +20,16 @@ class _HomePageState extends State<HomePage> {
   int selectedRadio;
   int selectedRadioTile;
   int age, height, weight;
-  double total;
-  int bmr;
+  double total = 0;
+  double total2 = 0;
+  int bmr = 0;
+  int calories = 0;
 
   @override
   void initState() {
     super.initState();
     selectedRadio = 1;
-    selectedRadioTile = 1;
+    selectedRadioTile = 0;
   }
 
   setSelectedRadioTile(int val) {
@@ -45,22 +47,35 @@ class _HomePageState extends State<HomePage> {
       if (_formulaType == "1") {
         if (_genderValue == "Male") {
           total = ((10 * weight) + (6.25 * height) - (5 * age) + 5);
-          total.round();
         } else {
           total = ((10 * weight) + (6.25 * height) - (5 * age) - 161);
-          total.round();
         }
       } else {
         if (_genderValue == "Male") {
           total = (66.47 + (13.75 * weight) + (5.003 * height) - (6.755 * age));
-          total.round();
         } else {
           total = (655.1 + (9.563 * weight) + (1.85 * height) - (4.676 * age));
-          total.round();
         }
       }
-      //total.round();
+
+      if (selectedRadioTile == 1) {
+        total2 = total * 1.2;
+        total2.round();
+      } else if (selectedRadioTile == 2) {
+        total2 = total * 1.375;
+        total2.round();
+      } else if (selectedRadioTile == 3) {
+        total2 = total * 1.55;
+        total2.round();
+      } else if (selectedRadioTile == 4) {
+        total2 = total * 1.725;
+        total2.round();
+      } else {
+        total2 = total * 1.9;
+        total2.round();
+      }
       bmr = total.round();
+      calories = total2.round();
     });
   }
 
@@ -296,9 +311,9 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         gradient: LinearGradient(
                           colors: <Color>[
-                            Color(0xFF0D47A1),
-                            Color(0xFF1976D2),
-                            Color(0xFF42A5F5)
+                            Color(0xFF90A4AE),
+                            Color(0xFF90A4AE),
+                            Color(0xFF90A4AE)
                           ],
                         ),
                       ),
@@ -309,20 +324,69 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.all(10.0),
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 280.0, 0.0),
+                child: Text(
+                  'Result',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
               Container(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(0.0),
+                width: 300,
+                height: 140,
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   gradient: LinearGradient(
                     colors: <Color>[
-                      Color(0xFF0D47A1),
-                      Color(0xFF1976D2),
-                      Color(0xFF42A5F5)
+                      Color(0xFF7E57C2),
+                      Color(0xFF7E57C2),
+                      Color(0xFF7E57C2),
                     ],
                   ),
                 ),
-                child: Text("Your BMR is $bmr"),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      margin: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 30.0),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Color(0xFFD1C4E9),
+                            Color(0xFFD1C4E9),
+                            Color(0xFFD1C4E9),
+                          ],
+                        ),
+                      ),
+                      child: Text("Your BMR is $bmr"),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Color(0xFFD1C4E9),
+                            Color(0xFFD1C4E9),
+                            Color(0xFFD1C4E9),
+                          ],
+                        ),
+                      ),
+                      child: Text("Maintenance calories per day is $calories"),
+                    ),
+                  ],
+                ),
               ),
+              Padding(
+                padding: EdgeInsets.all(
+                  10.0,
+                ),
+              )
             ],
           ),
         ),
